@@ -1,5 +1,6 @@
 var Contactos = require('../models/ContactoModel');
 var Requests = require('../models/RequestModel');
+var Users = require('../models/UserModel');
 var bodyParser = require('body-parser');
 
     
@@ -26,9 +27,12 @@ let insertRequest = (req,res) =>
     console.log(req.body);
     var newRequest = Requests({
         title: req.body.title,
+        description: req.body.description,
         category: req.body.category,
         startDate : req.body.startDate,
-        state: req.body.state
+        state: req.body.state,
+        quotations: req.body.quotations
+
     });
     newRequest.save().
     then
@@ -45,6 +49,51 @@ let insertRequest = (req,res) =>
     ) 
 }
 
+let postUserValidation = (req, res) =>
+{      
+    console.log("llegue a leer");
+    //Listar resultados
+    console.log(req.body);
 
-module.exports = {insertRequest,getRequests};
+    Users.findOne({user: req.body.user},function(err,result)
+    {
+        //devuelvo resultado query   
+        //console.log(listaContactos); 
+        console.log(result);
+        res.status(200).send({ "rol": result.rol});
+        //si hay error
+        (err)=>{
+            res.status(500).send(err);
+            console.log(err);
+        }
+    });
+           
+};
+
+let insertUser = (req,res) =>
+{
+    console.log(req.body);
+    var newUser = Users({
+        user: req.body.user,
+        password: req.body.password,
+        rol: req.body.rol
+    });
+    newUser.save().
+    then
+    (
+        (newUser)=>
+        {
+            res.status(200).send(newUser); //devuelvo resultado query       
+        },
+        (err)=>
+        { 
+            res.status(500).send(err);
+            console.log(err);
+        }
+    ) 
+}
+
+
+
+module.exports = {insertRequest,getRequests,postUserValidation,insertUser};
 
