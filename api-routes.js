@@ -31,7 +31,7 @@ router.get('/getRequest',function(req,res)
 router.post('/login',function(req,res)
 {
     console.log("leer");
-    apiController.postUserValidation(req,res);
+    apiController.postLogin(req,res);
 });
 //EndPoint para leer con filtro
 router.post('/createUser',function(req,res)

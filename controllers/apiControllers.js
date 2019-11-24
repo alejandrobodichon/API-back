@@ -49,18 +49,22 @@ let insertRequest = (req,res) =>
     ) 
 }
 
-let postUserValidation = (req, res) =>
+let postLogin = (req, res) =>
 {      
     console.log("llegue a leer");
     //Listar resultados
     console.log(req.body);
 
-    Users.findOne({user: req.body.user},function(err,result)
+    Users.findOne({email: req.body.email,password: req.body.password},function(err,result)
     {
         //devuelvo resultado query   
         //console.log(listaContactos); 
         console.log(result);
-        res.status(200).send({ "rol": result.rol});
+        if(result != null){
+            res.status(200).send({ "rol": result.rol});
+        } else {
+            res.status(201).send({"error": "usuario y/o contraseña erronea"})
+        }
         //si hay error
         (err)=>{
             res.status(500).send(err);
@@ -74,7 +78,9 @@ let insertUser = (req,res) =>
 {
     console.log(req.body);
     var newUser = Users({
-        user: req.body.user,
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
         password: req.body.password,
         rol: req.body.rol
     });
@@ -95,5 +101,5 @@ let insertUser = (req,res) =>
 
 
 
-module.exports = {insertRequest,getRequests,postUserValidation,insertUser};
+module.exports = {insertRequest,getRequests,postLogin,insertUser};
 

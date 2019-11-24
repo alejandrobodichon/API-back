@@ -12,5 +12,5 @@ var requestSchema = new Schema({
 });
 
 var Requests = mongoose.model('Request', requestSchema);
-console.log("se creo modelo");
+//console.log("se creo modelo");
 module.exports = Requests;

@@ -11,5 +11,5 @@ var contactoSchema = new Schema({
 });
 
 var Contactos = mongoose.model('Contacto', contactoSchema);
-console.log("se creo modelo");
+//console.log("se creo modelo");
 module.exports = Contactos;
