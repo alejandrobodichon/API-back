@@ -23,23 +23,28 @@ router.post('/insertRequest/Request',function(req,res)
 //EndPoint para leer toda la base
 router.get('/getRequest',function(req,res)
 {
-    console.log("leer");
+    console.log("leer Requests");
     apiController.getRequests(req,res);
 });
 
 //EndPoint para leer toda la base
 router.post('/login',function(req,res)
 {
-    console.log("leer");
+    console.log("login");
     apiController.postLogin(req,res);
 });
 //EndPoint para leer con filtro
 router.post('/createUser',function(req,res)
 {
-    console.log("leer con filtro");
+    console.log("insertar usuario");
     apiController.insertUser(req,res);
 });
 
+router.post('/getFilteredRequests',function(req,res)
+{
+    console.log("filteredRequest");
+    apiController.postFilteredRequests(req,res);
+});
 
 
 

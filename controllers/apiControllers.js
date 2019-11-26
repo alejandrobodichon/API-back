@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
     
 let getRequests = (req, res) =>
 {      
-    console.log("llegue a leer");
+    console.log("llegue a leer las Request");
     //Listar resultados
     Requests.find(function(err,requestList)
     {
@@ -24,7 +24,7 @@ let getRequests = (req, res) =>
 
 let insertRequest = (req,res) =>
 {
-    console.log(req.body);
+    console.log("intentando insertar request" + req.body);
     var newRequest = Requests({
         title: req.body.title,
         description: req.body.description,
@@ -48,6 +48,32 @@ let insertRequest = (req,res) =>
         }
     ) 
 }
+
+let postFilteredRequests = (req, res) =>
+{      
+    console.log("llegue a leer");
+    //Listar resultados
+    console.log(req.body);
+
+    Requests.find({category: req.body.category},function(err,result)
+    {
+        //devuelvo resultado query   
+        //console.log(listaContactos); 
+        console.log(result);
+        if(result != null){
+            res.status(200).send({ result});
+        } else {
+            res.status(201).send({"error": "no hay registros para esta categoria"})
+        }
+        //si hay error
+        (err)=>{
+            res.status(500).send(err);
+            console.log(err);
+        }
+    });
+           
+};
+
 
 let postLogin = (req, res) =>
 {      
@@ -101,5 +127,5 @@ let insertUser = (req,res) =>
 
 
 
-module.exports = {insertRequest,getRequests,postLogin,insertUser};
+module.exports = {insertRequest,getRequests,postLogin,insertUser,postFilteredRequests};
 
