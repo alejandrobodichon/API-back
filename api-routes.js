@@ -46,6 +46,11 @@ router.post('/getFilteredRequests',function(req,res)
     apiController.postFilteredRequests(req,res);
 });
 
+//EndPoint para modificar en la BD
+router.post('/createQuotation',function(req,res)
+{
+    apiController.createQuotation(req,res);
+});
 
 
 

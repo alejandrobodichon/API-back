@@ -75,16 +75,14 @@ let postFilteredRequests = (req, res) =>
 };
 
 
-let updateRequest = (req, res) =>
+let createQuotation = (req, res) =>
 {      
     console.log("llegue a modificar");
     //Listar resultados
     console.log(req.body);
 
-    Requests.updateOne({category: req.body.category},function(err,result)
+    Requests.findOneAndUpdate({title: req.body.title},{state: "Cotizado",quotations: {contractor: req.body.contractor ,quotation: req.body.quotation}},function(err,result)
     {
-        //devuelvo resultado query   
-        //console.log(listaContactos); 
         console.log(result);
         if(result != null){
             res.status(200).send({ result});
@@ -153,5 +151,5 @@ let insertUser = (req,res) =>
 
 
 
-module.exports = {insertRequest,getRequests,postLogin,insertUser,postFilteredRequests};
+module.exports = {insertRequest,getRequests,postLogin,insertUser,postFilteredRequests,createQuotation};
 
